@@ -39,7 +39,7 @@ You will connect two servers:
        "sqlite": {
          "type": "stdio",
          "command": "uvx",
-         "args": ["mcp-server-sqlite", "--db-path", "${workspaceFolder}/weather.db"]
+         "args": ["--with", "mcp<2", "mcp-server-sqlite", "--db-path", "${workspaceFolder}/weather.db"]
        },
        "fetch": {
          "type": "stdio",
@@ -51,6 +51,8 @@ You will connect two servers:
    ```
 
    VS Code uses the key **`servers`** (not `mcpServers`, which is for other editors).
+
+   The SQLite server needs `--with` and `mcp<2` in its arguments. Without them, a newer MCP library is installed and the server fails to start with a `list_resources` error.
 
 4. In `mcp.json`, click **Start** above each server and wait for it to show **Running**.
 5. Open Copilot Chat, switch the mode dropdown to **Agent**, click the **tools** icon, and confirm the `fetch` and `sqlite` tools are listed and enabled.
@@ -71,6 +73,7 @@ You will connect two servers:
 - Server fails to start? Check the **Output** panel (select the MCP server) and confirm `uv --version` works in the terminal. If not, run **Codespaces: Rebuild Container** from the Command Palette.
 - Codespace won't open? Make sure Codespaces is enabled for your account or organization.
 - Mona requires valid JSON (no comments or trailing commas) with `servers.sqlite` and `servers.fetch`.
+- SQLite server fails with a `list_resources` error? Check that its args include `--with` and `mcp<2` exactly as shown, save the file, and restart the server.
 - Business/Enterprise user? Ask your admin to enable the MCP servers policy.
 
 </details>

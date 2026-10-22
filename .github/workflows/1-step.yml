@@ -24,4 +24,6 @@ jobs:
           jq -e '.mcpServers' "$F" >/dev/null 2>&1 && fail 1 "VS Code uses the key \`servers\`, not \`mcpServers\`."
           jq -e '.servers.sqlite.command and .servers.fetch.command' "$F" >/dev/null 2>&1 \
             || fail 1 "Define both \`servers.sqlite\` and \`servers.fetch\` with a \`command\`."
+          jq -e '.servers.sqlite.args | index("mcp<2")' "$F" >/dev/null 2>&1 \
+            || fail 1 "Add \`--with\` and \`mcp<2\` to the SQLite server \`args\` exactly as shown in Step 1. Without them the server fails to start."
           advance 1 2
